@@ -1,10 +1,10 @@
-package br.com.mvbanking;
+package br.com.mvbanking.transactionprocessing;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class MvbankingApplicationTests {
+class TransactionProcessingServiceApplicationTests {
 
 	@Test
 	void contextLoads() {
