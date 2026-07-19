@@ -1,0 +1,38 @@
+services:
+  account-wallet-db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${ACCOUNT_WALLET_DB_NAME}
+      POSTGRES_USER: ${ACCOUNT_WALLET_DB_USER}
+      POSTGRES_PASSWORD: ${ACCOUNT_WALLET_DB_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - account-wallet-data:/var/lib/postgresql/data
+
+  transaction-processing-db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${TRANSACTION_PROCESSING_DB_NAME}
+      POSTGRES_USER: ${TRANSACTION_PROCESSING_DB_USER}
+      POSTGRES_PASSWORD: ${TRANSACTION_PROCESSING_DB_PASSWORD}
+    ports:
+      - "5433:5432"
+    volumes:
+      - transaction-processing-data:/var/lib/postgresql/data
+
+  ledger-auditing-db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${LEDGER_AUDITING_DB_NAME}
+      POSTGRES_USER: ${LEDGER_AUDITING_DB_USER}
+      POSTGRES_PASSWORD: ${LEDGER_AUDITING_DB_PASSWORD}
+    ports:
+      - "5434:5432"
+    volumes:
+      - ledger-auditing-data:/var/lib/postgresql/data
+
+volumes:
+  account-wallet-data:
+  transaction-processing-data:
+  ledger-auditing-data:
