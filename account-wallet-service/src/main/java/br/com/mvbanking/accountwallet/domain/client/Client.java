@@ -13,6 +13,11 @@ public class Client {
 
     public Client(String name, LocalDate dateOfBirth, String cpf, PhoneNumber phoneNumber, Address address) {
         this.id = UUID.randomUUID();
+
+        if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("Name cannot be null or empty");
+        }
+
         this.name = name;
         this.dateOfBirth = dateOfBirth;
         this.cpf = CPF.validate(cpf);
