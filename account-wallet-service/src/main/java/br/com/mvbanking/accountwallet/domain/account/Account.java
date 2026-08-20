@@ -1,16 +1,17 @@
 package br.com.mvbanking.accountwallet.domain.account;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 public class Account {
     private UUID clientId;
     private int number;
     private int agency;
-    private double balance;
+    private BigDecimal balance;
     private AccountType accountType;
     private AccountStatus accountStatus;
 
-    public Account(UUID clientId, int number, int agency, double balance, AccountType accountType, AccountStatus accountStatus) {
+    public Account(UUID clientId, int number, int agency, BigDecimal balance, AccountType accountType, AccountStatus accountStatus) {
         this.clientId = clientId;
         this.number = number;
         this.agency = agency;
