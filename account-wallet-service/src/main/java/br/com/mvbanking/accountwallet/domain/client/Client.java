@@ -8,14 +8,14 @@ public class Client {
     private String name;
     private LocalDate dateOfBirth;
     private CPF cpf;
-    private String phoneNumber;
+    private PhoneNumber phoneNumber;
     private Address address;
 
-    public Client(String name, LocalDate dateOfBirth, String cpf, String phoneNumber, Address address) {
+    public Client(String name, LocalDate dateOfBirth, String cpf, PhoneNumber phoneNumber, Address address) {
         this.id = UUID.randomUUID();
         this.name = name;
         this.dateOfBirth = dateOfBirth;
-        this.cpf = CPF.validar(cpf);
+        this.cpf = CPF.validate(cpf);
         this.phoneNumber = phoneNumber;
         this.address = address;
     }
