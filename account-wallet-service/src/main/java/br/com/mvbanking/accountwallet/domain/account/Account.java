@@ -1,6 +1,5 @@
 package br.com.mvbanking.accountwallet.domain.account;
 
-import java.math.BigDecimal;
 import java.util.UUID;
 
 public class Account {
@@ -15,7 +14,7 @@ public class Account {
         this.clientId = clientId;
         this.number = number;
         this.agency = agency;
-        this.balance = balance;
+        this.balance = new Money(balance.getAmount());
         this.accountType = accountType;
         this.accountStatus = accountStatus;
     }

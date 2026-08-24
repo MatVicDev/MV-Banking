@@ -1,5 +1,6 @@
 package br.com.mvbanking.accountwallet.domain.account;
 
-public interface AccountType {
-
+public enum AccountType {
+    CURRENT,
+    SAVINGS
 }
