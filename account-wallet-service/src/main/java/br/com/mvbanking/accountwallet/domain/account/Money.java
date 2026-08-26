@@ -6,23 +6,19 @@ public class Money {
     private final BigDecimal amount;
 
     public Money(BigDecimal amount) {
-        this.amount = validate(amount);
+        if (amount == null) {
+            throw new IllegalArgumentException("Amount cannot be null");
+        }
+
+        this.amount = amount;
     }
 
     public Money add(BigDecimal amount) {
-        return new Money(this.amount.add(validate(amount)));
+        return new Money(this.amount.add(amount));
     }
 
     public Money subtract(BigDecimal amount) {
-        return new Money(this.amount.subtract(validate(amount)));
-    }
-
-    private BigDecimal validate(BigDecimal amount) {
-        if (amount.compareTo(BigDecimal.ZERO) < 0) {
-            throw new IllegalArgumentException("Amount cannot be negative");
-        }
-
-        return amount;
+        return new Money(this.amount.subtract(amount));
     }
 
     public BigDecimal getAmount() {
