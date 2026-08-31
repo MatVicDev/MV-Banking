@@ -24,4 +24,8 @@ public class Client {
         this.phoneNumber = phoneNumber;
         this.address = address;
     }
+
+    public CPF getCpf() {
+        return cpf;
+    }
 }
