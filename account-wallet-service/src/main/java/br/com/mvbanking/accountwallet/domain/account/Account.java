@@ -12,14 +12,22 @@ public class Account {
     private AccountType accountType;
     private AccountStatus accountStatus;
 
-    public Account(UUID clientId, int number, int agency, Money balance, AccountType accountType, AccountStatus accountStatus) {
+    public Account(UUID clientId, AccountType accountType) {
         this.id = UUID.randomUUID();
         this.clientId = clientId;
-        this.number = number;
-        this.agency = agency;
-        this.balance = new Money(balance.getAmount());
+        this.number = generateAccountNumber();
+        this.agency = generateAgencyNumber();
+        this.balance = new Money(BigDecimal.ZERO);
         this.accountType = accountType;
-        this.accountStatus = accountStatus;
+        this.accountStatus = AccountStatus.ACTIVE;
+    }
+
+    private int generateAccountNumber() {
+        return (int) (Math.random() * 1000000);
+    }
+
+    private int generateAgencyNumber() {
+        return (int) (Math.random() * 10000);
     }
 
     public void deposit(Money amount) {
@@ -44,7 +52,15 @@ public class Account {
         this.balance = new Money(balanceAfter);
     }
 
+    public void block() {
+        this.accountStatus = AccountStatus.BLOCKED;
+    }
+
+    public void deactivate() {
+        this.accountStatus = AccountStatus.INACTIVE;
+    }
+
     public Money generateExtract() {
-        return new Money(this.balance.getAmount());
+        return this.balance;
     }
 }

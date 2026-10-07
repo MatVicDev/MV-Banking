@@ -4,9 +4,7 @@ import br.com.mvbanking.accountwallet.application.port.in.RegisterClientCommand;
 import br.com.mvbanking.accountwallet.application.port.in.RegisterClientUseCase;
 import br.com.mvbanking.accountwallet.application.port.out.ClientRepository;
 import br.com.mvbanking.accountwallet.domain.client.Client;
-import org.springframework.stereotype.Service;
 
-@Service
 public class RegisterClientService implements RegisterClientUseCase {
     private final ClientRepository repository;
 

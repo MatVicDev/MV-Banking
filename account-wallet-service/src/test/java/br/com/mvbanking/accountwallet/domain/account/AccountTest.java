@@ -13,11 +13,8 @@ class AccountTest {
     public void shouldDeposit() {
         Account account = new Account(
                 UUID.fromString("12345678-1234-1234-1234-123456789012"),
-                123,
-                123456,
-                new Money(new BigDecimal("0.00")),
-                AccountType.CURRENT,
-                AccountStatus.ACTIVE);
+                AccountType.CURRENT);
+
         account.deposit(new Money(new BigDecimal("100.00")));
 
         assertEquals(new Money(new BigDecimal("100.00")), account.generateExtract());
@@ -27,11 +24,9 @@ class AccountTest {
     public void shouldWithdraw() {
         Account account = new Account(
                 UUID.fromString("12345678-1234-1234-1234-123456789012"),
-                123,
-                123456,
-                new Money(new BigDecimal("100.00")),
-                AccountType.CURRENT,
-                AccountStatus.ACTIVE);
+                AccountType.CURRENT);
+        account.deposit(new Money(new BigDecimal("100.00")));
+
         account.withdraw(new Money(new BigDecimal("50.00")));
 
         assertEquals(new Money(new BigDecimal("50.00")), account.generateExtract());
@@ -41,11 +36,7 @@ class AccountTest {
     public void shouldNotWithdrawWhenInsufficientFundsInCurrentAccount() {
         Account account = new Account(
                 UUID.fromString("12345678-1234-1234-1234-123456789012"),
-                123,
-                123456,
-                new Money(new BigDecimal("0.00")),
-                AccountType.CURRENT,
-                AccountStatus.ACTIVE);
+                AccountType.CURRENT);
 
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             account.withdraw(new Money(new BigDecimal("150.00")));
@@ -58,11 +49,7 @@ class AccountTest {
     public void shouldNotWithdrawWhenInsufficientFundsInSavingsAccount() {
         Account account = new Account(
                 UUID.fromString("12345678-1234-1234-1234-123456789012"),
-                123,
-                123456,
-                new Money(new BigDecimal("0.00")),
-                AccountType.SAVINGS,
-                AccountStatus.ACTIVE);
+                AccountType.SAVINGS);
 
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             account.withdraw(new Money(new BigDecimal("50.00")));
@@ -75,11 +62,8 @@ class AccountTest {
     public void shouldNotDepositWhenAccountIsInactive() {
         Account account = new Account(
                 UUID.fromString("12345678-1234-1234-1234-123456789012"),
-                123,
-                123456,
-                new Money(new BigDecimal("0.00")),
-                AccountType.CURRENT,
-                AccountStatus.INACTIVE);
+                AccountType.CURRENT);
+        account.deactivate();
 
         Exception exception = assertThrows(IllegalStateException.class, () -> {
             account.deposit(new Money(new BigDecimal("50.00")));
@@ -92,11 +76,8 @@ class AccountTest {
     public void shouldNotWithdrawWhenAccountIsInactive() {
         Account account = new Account(
                 UUID.fromString("12345678-1234-1234-1234-123456789012"),
-                123,
-                123456,
-                new Money(new BigDecimal("100.00")),
-                AccountType.CURRENT,
-                AccountStatus.INACTIVE);
+                AccountType.CURRENT);
+        account.deactivate();
 
         Exception exception = assertThrows(IllegalStateException.class, () -> {
             account.withdraw(new Money(new BigDecimal("50.00")));
@@ -109,11 +90,8 @@ class AccountTest {
     public void shouldNotDepositWhenAccountIsBlocked() {
         Account account = new Account(
                 UUID.fromString("12345678-1234-1234-1234-123456789012"),
-                123,
-                123456,
-                new Money(new BigDecimal("0.00")),
-                AccountType.CURRENT,
-                AccountStatus.BLOCKED);
+                AccountType.CURRENT);
+        account.block();
 
         Exception exception = assertThrows(IllegalStateException.class, () -> {
             account.deposit(new Money(new BigDecimal("50.00")));
@@ -126,11 +104,8 @@ class AccountTest {
     public void shouldNotWithdrawWhenAccountIsBlocked() {
         Account account = new Account(
                 UUID.fromString("12345678-1234-1234-1234-123456789012"),
-                123,
-                123456,
-                new Money(new BigDecimal("100.00")),
-                AccountType.CURRENT,
-                AccountStatus.BLOCKED);
+                AccountType.CURRENT);
+        account.block();
 
         Exception exception = assertThrows(IllegalStateException.class, () -> {
             account.withdraw(new Money(new BigDecimal("50.00")));
